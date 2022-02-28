@@ -1,0 +1,7 @@
+2022-02-28 13:56:11,252 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-02-28 13:59:03,294 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-02-28 14:00:35,889 [Worker-6: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.hcl:spring-boot-ecommerce:0.0.1-SNAPSHOT @ C:\Users\Prana\GitHub\HCL-Udemy-Capstone\ecomerce-project\02-backend\spring-boot-ecommerce\pom.xml.
+2022-02-28 14:00:37,667 [Worker-6: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /spring-boot-ecommerce/src/main/java
+2022-02-28 14:00:37,671 [Worker-6: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /spring-boot-ecommerce/src/main/resources
+2022-02-28 14:00:37,678 [Worker-6: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /spring-boot-ecommerce/src/main/resources
+2022-02-28 14:00:37,694 [Worker-6: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /spring-boot-ecommerce/src/test/java
