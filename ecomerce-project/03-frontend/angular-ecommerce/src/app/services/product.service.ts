@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators'
 import { ProductCategory } from '../common/product-category';
 
@@ -10,8 +11,8 @@ import { ProductCategory } from '../common/product-category';
 })
 export class ProductService {
 
-  private baseUrl = "http://localhost:8080/api/products";
-  private categoryUrl = "http://localhost:8080/api/product-category";
+  private baseUrl = environment.luv2shopApiUrl + "/products";
+  private categoryUrl = environment.luv2shopApiUrl + "/product-category";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,7 +22,8 @@ export class ProductService {
     //need to build url based on category id, page and size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}` +
       `&page=${thePage}&size=${thePageSize}`;
-
+    
+    console.log(`Getting products from - ${searchUrl}` );
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 

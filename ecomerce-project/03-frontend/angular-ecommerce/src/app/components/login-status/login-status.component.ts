@@ -9,45 +9,44 @@ import { OktaAuth } from '@okta/okta-auth-js';
 })
 export class LoginStatusComponent implements OnInit {
 
-  isAuthenticated:boolean = false;
+  isAuthenticated: boolean = false;
   userFullName: string;
-
-  storage:Storage = sessionStorage;
+  storage: Storage = sessionStorage;
 
   constructor(private oktaAuthService: OktaAuthStateService,
-    @Inject(OKTA_AUTH)private oktaAuth: OktaAuth) { }
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth) { }
 
   ngOnInit(): void {
-    // Subscribe to authentication state changes
+
+    // subscribe to authentication state changes
     this.oktaAuthService.authState$.subscribe(
-      (result)=>{
+      (result) => {
         this.isAuthenticated = result.isAuthenticated;
         this.getUserDetails();
       }
-    );
+    )
   }
   getUserDetails() {
-    if(this.isAuthenticated){
-      //Fetch the logged in user details (user's claims)
 
+    if (this.isAuthenticated) {
+      // Fetch the logged in user details (user's claims)
       // user full name is exposed as a property name
       this.oktaAuth.getUser().then(
         (res) => {
           this.userFullName = res.name;
-          // retrieve the users email from authentication response
+
+          // retrieve the user's email from authentication response
           const theEmail = res.email;
+
           // now store the email in browser storage
           this.storage.setItem('userEmail', JSON.stringify(theEmail));
-
         }
-      )
-
+      );
     }
   }
 
-  logout(){
-    // Terminates the session with Okta and removes current tokens
+  logout() {
+    // terminates the session with Okta and removes current tokens.
     this.oktaAuth.signOut();
   }
-
 }

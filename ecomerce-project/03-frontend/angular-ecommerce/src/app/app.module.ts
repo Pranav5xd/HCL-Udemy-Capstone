@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HttpClientModule} from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { ProductService } from './services/product.service';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
@@ -29,20 +29,19 @@ import myAppConfig from './config/my-app-config';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (oktaAuth, injector:{ get:(arg0: typeof Router)=>any;}) =>{
+  onAuthRequired: (injector) => {
     const router = injector.get(Router);
+
+    // Redirect the user to your custome login page
     router.navigate(['/login']);
   }
 }, myAppConfig.oidc);
 
-const oktaAuth = new OktaAuth({
-  clientId:'0oa4676o5e51PVaHN5d7',
-  issuer:'https://dev-8365824.okta.com',
-  redirectUri:'http://localhost:4200/login/callback',
-  scopes:['openid', 'profile', 'email']
-});
+const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes=[
   {path: 'orders-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard]},
@@ -83,7 +82,8 @@ const routes: Routes=[
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}}],
+  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}},
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
